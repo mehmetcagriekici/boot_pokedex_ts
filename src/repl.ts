@@ -19,7 +19,7 @@ export function startREPL(state: State) {
       const cmd = args[0];
 
       if (state.commands[cmd]) {
-        await state.commands[cmd].callback(state);
+        await state.commands[cmd].callback(state, ...args.slice(1));
       } else {
         console.log("Unknown command");
       }

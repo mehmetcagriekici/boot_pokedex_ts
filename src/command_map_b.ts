@@ -3,8 +3,13 @@ import { printLocations } from "./helpers.js";
 
 export async function commandMapb(state: State) {
   try {
-    const locations = await state.PokeAPI.fetchLocations(state.prevOffset);
-    state.prevOffset = state.nextOffset - 20;
+    if (!state.prevLocationsURL) {
+      console.log("you're on the first page")
+      return
+    }
+    const locations = await state.PokeAPI.fetchLocations(state.prevLocationsURL);
+    state.nextLocationsURL = locations.next;
+    state.prevLocationsURL = locations.previous;
     printLocations(locations);
   } catch (err) {
     if (err instanceof Error) {

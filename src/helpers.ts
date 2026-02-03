@@ -1,4 +1,4 @@
-import { type ShallowLocations } from "./pokeapi.js"
+import { type ShallowLocations, type LocationArea } from "./pokeapi.js"
 
 export async function getData(url: string) {
   try {
@@ -13,7 +13,14 @@ export async function getData(url: string) {
 }
 
 export function printLocations(locations: ShallowLocations) {
-  for (const name in locations.results) {
-    console.log(name);
+  for (const i in locations.results) {
+    console.log(locations.results[i].name);
+  }
+}
+
+export function printPokemonEncounters(locationArea: LocationArea) {
+  console.log("Found Pokemon:")
+  for (const i in locationArea.pokemon_encounters) {
+    console.log(" - " + locationArea.pokemon_encounters[i].pokemon.name);
   }
 }
